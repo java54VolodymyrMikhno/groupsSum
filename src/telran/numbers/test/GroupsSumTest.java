@@ -8,8 +8,11 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 import telran.numbers.*;
 class GroupsSumTest {
-private static final int N_GROUPS = 1000;
-private static final int GROUP_LENGTH = 1000;
+private static final int N_GROUPS = 10000;
+private static final int GROUP_LENGTH = 10000;
+long startTime;
+long endTime;
+
 int[][] groups = {
 		{1,2},
 		{3,4},
@@ -34,11 +37,18 @@ int[][] largeGroups = getLargeGroups(N_GROUPS, GROUP_LENGTH);
 	}
 	@Test
 	void groupsSumTaskThreadPerformance() {
+		 startTime = System.currentTimeMillis();	
 		new GroupsSumTaskThread(largeGroups).getSum();
+		 endTime = System.currentTimeMillis();
+		 System.out.println("GroupsSumTaskThread performance time: " + (endTime - startTime) + " ms");
 	}
 	@Test
 	void groupsSumTaskThreadPoolsPerformance() {
+		 startTime = System.currentTimeMillis();
 		new GroupsSumThreadPool(largeGroups).getSum();
+		 endTime = System.currentTimeMillis();
+        System.out.println("GroupsSumThreadPool performance time: " + (endTime - startTime) + " ms");
+
 	}
 
 }
