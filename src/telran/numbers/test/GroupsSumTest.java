@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Random;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 import telran.numbers.*;
@@ -25,9 +26,8 @@ int[][] largeGroups = getLargeGroups(N_GROUPS, GROUP_LENGTH);
 		assertEquals(21, gs.getSum());
 	}
 	private int[][] getLargeGroups(int nGroups, int groupLength) {
-	    return IntStream.range(0, nGroups)
-	            .mapToObj(i -> new Random().ints(groupLength).toArray())
-	            .toArray(int[][]::new);
+		return Stream.generate(() -> new Random().ints(groupLength).toArray())
+				.limit(nGroups).toArray(int[][]::new);
 	}
 
 	@Test
